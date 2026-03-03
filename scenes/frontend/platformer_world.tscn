@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://platformer_world_scene"]
+
+[ext_resource type="Script" uid="uid://platworld_script" path="res://scenes/frontend/platformer_world.gd" id="1_platworld"]
+[ext_resource type="Script" uid="uid://player_char_script" path="res://scenes/frontend/player_character.gd" id="2_platworld"]
+[ext_resource type="Script" uid="uid://glitch_fx_script" path="res://scenes/frontend/glitch_effects.gd" id="3_platworld"]
+
+[sub_resource type="RectangleShape2D" id="RectShape_ground"]
+size = Vector2(1280, 32)
+
+[sub_resource type="RectangleShape2D" id="RectShape_p1"]
+size = Vector2(200, 20)
+
+[sub_resource type="RectangleShape2D" id="RectShape_p2"]
+size = Vector2(160, 20)
+
+[sub_resource type="RectangleShape2D" id="RectShape_p3"]
+size = Vector2(180, 20)
+
+[sub_resource type="RectangleShape2D" id="RectShape_p4"]
+size = Vector2(140, 20)
+
+[sub_resource type="RectangleShape2D" id="RectShape_p5"]
+size = Vector2(200, 20)
+
+[sub_resource type="RectangleShape2D" id="RectShape_player"]
+size = Vector2(32, 48)
+
+[node name="PlatformerWorld" type="Node2D"]
+script = ExtResource("1_platworld")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.08, 0.06, 0.12, 1)
+z_index = -10
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Platforms"]
+position = Vector2(640, 710)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Ground"]
+offset_left = -640.0
+offset_top = -16.0
+offset_right = 640.0
+offset_bottom = 16.0
+color = Color(0.3, 0.6, 0.3, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Ground"]
+shape = SubResource("RectShape_ground")
+
+[node name="Platform1" type="StaticBody2D" parent="Platforms"]
+position = Vector2(200, 560)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform1"]
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+color = Color(0.4, 0.7, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform1"]
+shape = SubResource("RectShape_p1")
+
+[node name="Platform2" type="StaticBody2D" parent="Platforms"]
+position = Vector2(500, 440)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform2"]
+offset_left = -80.0
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+color = Color(0.4, 0.7, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2"]
+shape = SubResource("RectShape_p2")
+
+[node name="Platform3" type="StaticBody2D" parent="Platforms"]
+position = Vector2(800, 350)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform3"]
+offset_left = -90.0
+offset_top = -10.0
+offset_right = 90.0
+offset_bottom = 10.0
+color = Color(0.4, 0.7, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform3"]
+shape = SubResource("RectShape_p3")
+
+[node name="Platform4" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1050, 480)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform4"]
+offset_left = -70.0
+offset_top = -10.0
+offset_right = 70.0
+offset_bottom = 10.0
+color = Color(0.4, 0.7, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform4"]
+shape = SubResource("RectShape_p4")
+
+[node name="Platform5" type="StaticBody2D" parent="Platforms"]
+position = Vector2(350, 290)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform5"]
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+color = Color(0.4, 0.7, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform5"]
+shape = SubResource("RectShape_p5")
+
+[node name="PlayerCharacter" type="CharacterBody2D" parent="."]
+position = Vector2(200, 620)
+script = ExtResource("2_platworld")
+
+[node name="Sprite" type="ColorRect" parent="PlayerCharacter"]
+offset_left = -16.0
+offset_top = -48.0
+offset_right = 16.0
+offset_bottom = 0.0
+color = Color(0.2, 0.8, 1.0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacter"]
+position = Vector2(0, -24)
+shape = SubResource("RectShape_player")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerCharacter"]
+enabled = true
+
+[node name="GlitchLayer" type="CanvasLayer" parent="."]
+script = ExtResource("3_platworld")
