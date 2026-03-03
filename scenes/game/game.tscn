@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://game_scene_main"]
+
+[ext_resource type="Script" uid="uid://game_scene_script" path="res://scenes/game/game.gd" id="1_game"]
+[ext_resource type="PackedScene" uid="uid://platformer_world_scene" path="res://scenes/frontend/platformer_world.tscn" id="2_game"]
+[ext_resource type="PackedScene" uid="uid://pcb_world_scene" path="res://scenes/backend/pcb_world.tscn" id="3_game"]
+[ext_resource type="PackedScene" uid="uid://game_hud_scene" path="res://scenes/hud/game_hud.tscn" id="4_game"]
+[ext_resource type="Script" uid="uid://glitch_sys_script" path="res://systems/glitch_system.gd" id="5_game"]
+[ext_resource type="Script" uid="uid://repair_sys_script" path="res://systems/repair_system.gd" id="6_game"]
+[ext_resource type="Script" uid="uid://viewport_sync_script" path="res://systems/viewport_sync.gd" id="7_game"]
+[ext_resource type="Script" uid="uid://difficulty_mgr_script" path="res://systems/difficulty_manager.gd" id="8_game"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_game")
+
+[node name="GlitchSystem" type="Node" parent="."]
+script = ExtResource("5_game")
+
+[node name="RepairSystem" type="Node" parent="."]
+script = ExtResource("6_game")
+
+[node name="ViewportSync" type="Node" parent="."]
+script = ExtResource("7_game")
+
+[node name="DifficultyManager" type="Node" parent="."]
+script = ExtResource("8_game")
+
+[node name="FrontendView" type="SubViewportContainer" parent="."]
+position = Vector2(0, 0)
+size = Vector2(1280, 720)
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="FrontendView"]
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="PlatformerWorld" parent="FrontendView/SubViewport" instance=ExtResource("2_game")]
+
+[node name="BackendView" type="SubViewportContainer" parent="."]
+position = Vector2(384, 0)
+size = Vector2(896, 720)
+stretch = true
+visible = false
+
+[node name="SubViewport" type="SubViewport" parent="BackendView"]
+size = Vector2i(896, 720)
+render_target_update_mode = 4
+
+[node name="PCBWorld" parent="BackendView/SubViewport" instance=ExtResource("3_game")]
+
+[node name="FrontendPreview" type="SubViewportContainer" parent="."]
+position = Vector2(0, 0)
+size = Vector2(384, 720)
+stretch = true
+visible = false
+
+[node name="SubViewport" type="SubViewport" parent="FrontendPreview"]
+size = Vector2i(384, 720)
+render_target_update_mode = 4
+
+[node name="PlatformerWorldPreview" parent="FrontendPreview/SubViewport" instance=ExtResource("2_game")]
+
+[node name="GameHUD" parent="." instance=ExtResource("4_game")]
